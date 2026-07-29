@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Giá Catalogue A4 Đứng</title>
+  <title>Giá Catalogue</title>
   <style>
     :root{--blue:#a9d9e9;--yellow:#fff200;--red:#f21821;--ink:#171717;--line:#2d2d2d;--bg:#f1f4f6;--teal:#006b87}
     *{box-sizing:border-box}
@@ -37,7 +37,7 @@
 </head>
 <body>
 <main>
-  <h1>Bảng make-up giá Catalogue A4 Đứng</h1>
+  <h1>Bảng make-up giá Catalogue</h1>
   <p>Sửa trực tiếp giá gia công trong bảng. Giá Still, giá một cuốn và tiền lời sẽ tự cập nhật.</p>
   <nav class="nav no-print">
     <a href="./to-roi.html">Tờ rơi</a>
@@ -115,6 +115,34 @@ const data=[
       [76,[16200000,17000000,20000000,26400000,39200000]],
       [80,[17000000,17900000,21000000,27800000,41200000]]
     ]
+  },
+  {
+    title:'Catalogue A5 đứng — Bìa + ruột C150 + bấm 2 kim',
+    quantities:[300,500,1000],
+    rows:[
+      [8,[null,1200000,1500000]],
+      [12,[1600000,1750000,2200000]],
+      [16,[2000000,2200000,2950000]],
+      [20,[2500000,2700000,3600000]],
+      [24,[3100000,3300000,4400000]],
+      [28,[3500000,3700000,4800000]],
+      [32,[4100000,4300000,5500000]]
+    ]
+  },
+  {
+    title:'Catalogue A5 đứng — Bìa C300 + ruột C150 cán 1 mặt + bấm 2 kim',
+    quantities:[300,500,1000],
+    rows:[
+      [8,[1500000,1650000,2500000]],
+      [12,[1900000,2200000,3100000]],
+      [16,[2400000,2700000,3800000]],
+      [20,[2900000,3200000,4300000]],
+      [24,[3400000,3800000,4900000]],
+      [28,[3700000,4100000,5600000]],
+      [32,[4200000,4600000,6200000]],
+      [36,[4500000,5000000,6900000]],
+      [40,[5100000,5600000,7500000]]
+    ]
   }
 ];
 const payment=`Cảm ơn anh/chị đã xem qua, nếu anh/chị duyệt báo giá, vui lòng chuyển khoản cọc để bên em tiến hành in ấn ạ
@@ -137,7 +165,7 @@ function draw(){
         <tbody>${table.rows.map(([pages,prices],rowIndex)=>`
           <tr>
             <th>${pages}</th>
-            ${prices.map((price,columnIndex)=>`
+            ${prices.map((price,columnIndex)=>price===null?'<td>—</td>':`
               <td>
                 <input class="price" type="text" inputmode="numeric" value="${fmt(price)}"
                   data-table="${tableIndex}" data-row="${rowIndex}" data-column="${columnIndex}"
@@ -182,8 +210,9 @@ function copyQuote(event){
   const priceText=cell.querySelector('.still span').textContent;
   const amount=Number(priceText.replace(/[^0-9]/g,''))||0;
   const deposit=money(Math.round(amount/2));
-  const text=`Catalogue A4 đứng
-Quy cách: ${table.title.replace('Catalogue A4 đứng — ','')}
+  const [productName,...specParts]=table.title.split(' — ');
+  const text=`${productName}
+Quy cách: ${specParts.join(' — ')}
 Số trang: ${input.dataset.pages} trang
 Số lượng: ${fmt(Number(input.dataset.quantity))} cuốn
 Giá tiền: ${priceText} (giá chưa bao gồm VAT)
@@ -221,7 +250,7 @@ draw();
   main.style.display='none';
   const gate=document.createElement('div');
   gate.style.cssText='position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#e8f6fb,#fff5d8);font-family:Arial,sans-serif';
-  gate.innerHTML='<div style="width:min(360px,100%);padding:30px;border-radius:18px;background:#fff;box-shadow:0 18px 55px #24536b35;text-align:center"><div style="font-size:36px">🔒</div><h1 style="font-size:24px;margin:12px 0 8px">Giá Catalogue A4 Đứng</h1><p style="color:#536170;margin:0 0 18px">Nhập mật khẩu để mở bảng giá Still Printing.</p><input id="site-pass" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Mật khẩu" style="width:100%;padding:12px;border:1px solid #aebdca;border-radius:8px;font-size:17px;text-align:center"><button id="site-open" style="width:100%;margin-top:10px;padding:12px;background:#006b87;color:#fff;border:0;border-radius:8px;font-weight:700;font-size:16px">Mở bảng giá</button><div id="site-error" style="min-height:20px;margin-top:10px;color:#be3030;font-size:13px"></div></div>';
+  gate.innerHTML='<div style="width:min(360px,100%);padding:30px;border-radius:18px;background:#fff;box-shadow:0 18px 55px #24536b35;text-align:center"><div style="font-size:36px">🔒</div><h1 style="font-size:24px;margin:12px 0 8px">Giá Catalogue</h1><p style="color:#536170;margin:0 0 18px">Nhập mật khẩu để mở bảng giá Still Printing.</p><input id="site-pass" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Mật khẩu" style="width:100%;padding:12px;border:1px solid #aebdca;border-radius:8px;font-size:17px;text-align:center"><button id="site-open" style="width:100%;margin-top:10px;padding:12px;background:#006b87;color:#fff;border:0;border-radius:8px;font-weight:700;font-size:16px">Mở bảng giá</button><div id="site-error" style="min-height:20px;margin-top:10px;color:#be3030;font-size:13px"></div></div>';
   document.body.appendChild(gate);
   const input=document.querySelector('#site-pass');
   const open=()=>{
