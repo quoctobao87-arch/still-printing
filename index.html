@@ -3,70 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10283f">
   <title>Bảng giá Still Printing</title>
   <style>
-    :root{--blue:#a9d9e9;--yellow:#fff200;--ink:#17242b;--muted:#60717a;--teal:#006b87}
+    :root{--navy:#10283f;--navy-2:#183b58;--cream:#f5f0e6;--paper:#fffdf8;--yellow:#f6d657;--ink:#14273a;--muted:#657483;--line:#dce3e6}
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:linear-gradient(145deg,#e8f6fb 0%,#fff9df 100%);font-family:Arial,sans-serif;color:var(--ink)}
-    main{width:min(960px,100%);margin:auto;padding:56px 18px}
-    .brand{display:inline-block;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #c4d9e2;color:var(--teal);font-size:13px;font-weight:800;letter-spacing:.04em}
-    h1{margin:18px 0 8px;font-size:clamp(30px,6vw,52px);line-height:1.05}
-    .intro{margin:0;color:var(--muted);font-size:17px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:34px}
-    .card{display:flex;min-height:220px;flex-direction:column;padding:26px;border:1px solid #bfd2da;border-radius:18px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 16px 45px #224b5c18;transition:.18s ease}
-    .card:hover{transform:translateY(-3px);box-shadow:0 20px 52px #224b5c25;border-color:#70b4c8}
-    .icon{font-size:36px}
-    h2{margin:18px 0 8px;font-size:26px}
-    .card p{margin:0;color:var(--muted);line-height:1.55}
-    .open{margin-top:auto;padding-top:22px;color:var(--teal);font-weight:800}
-    .foot{margin-top:24px;color:#74848c;font-size:13px}
-    @media(max-width:680px){main{padding:36px 14px}.grid{grid-template-columns:1fr}.card{min-height:190px}}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:var(--cream);font-family:Arial,sans-serif;color:var(--ink)}
+    body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 8% 5%,#fff 0 10%,transparent 30%),radial-gradient(circle at 92% 15%,#f8de75aa 0 5%,transparent 24%)}
+    .shell{width:min(1180px,100%);margin:auto;padding:22px 20px 52px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .mini-brand{display:flex;align-items:center;gap:11px;color:var(--navy);font-weight:900;letter-spacing:.08em}
+    .mini-brand img{width:42px;height:42px;border-radius:11px}
+    .private{padding:8px 12px;border:1px solid #cad4d9;border-radius:999px;background:#ffffff99;color:#526474;font-size:12px;font-weight:800}
+    .hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);align-items:center;gap:42px;margin:28px 0 38px;padding:46px;border-radius:34px;background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;box-shadow:0 24px 70px #10283f33;overflow:hidden;position:relative}
+    .hero:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #ffffff1f;border-radius:50%;right:-130px;top:-170px;box-shadow:0 0 0 55px #ffffff08,0 0 0 110px #ffffff05}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;color:var(--yellow);font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:28px;height:2px;background:currentColor}
+    h1{max-width:700px;margin:0;font-size:clamp(38px,6vw,70px);line-height:.98;letter-spacing:-.045em}
+    .lead{max-width:580px;margin:20px 0 0;color:#d9e4ec;font-size:17px;line-height:1.65}
+    .hero-logo{position:relative;z-index:1;justify-self:end;width:min(310px,100%);padding:14px;border-radius:30px;background:#fff;box-shadow:0 20px 55px #0004;transform:rotate(2deg)}
+    .hero-logo img{display:block;width:100%;border-radius:20px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:0 3px 18px}
+    .section-head h2{margin:0;font-size:clamp(26px,4vw,38px);letter-spacing:-.03em}
+    .section-head p{margin:0;color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{position:relative;display:flex;min-height:235px;flex-direction:column;padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:inherit;text-decoration:none;box-shadow:0 8px 25px #17334a0c;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .card:before{content:"";position:absolute;width:105px;height:105px;border-radius:50%;right:-48px;top:-48px;background:var(--accent,#d7edf4);opacity:.8}
+    .card:hover{transform:translateY(-5px);box-shadow:0 18px 42px #17334a1b;border-color:#a9bcc5}
+    .top{display:flex;align-items:center;justify-content:space-between;position:relative}
+    .icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:var(--accent,#d7edf4);font-size:24px}
+    .num{color:#a2adb5;font-size:12px;font-weight:900;letter-spacing:.12em}
+    .card h3{margin:24px 0 9px;font-size:24px;letter-spacing:-.025em}
+    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+    .open{display:flex;align-items:center;gap:7px;margin-top:auto;padding-top:22px;color:var(--navy);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+    .open:after{content:"→";font-size:18px;transition:transform .18s}.card:hover .open:after{transform:translateX(4px)}
+    .card.primary{background:var(--navy);color:#fff;border-color:var(--navy);--accent:#f6d657}
+    .card.primary p{color:#ccdbe5}.card.primary .open{color:var(--yellow)}.card.primary .num{color:#91a8b8}
+    footer{display:flex;justify-content:space-between;gap:20px;margin-top:24px;padding:19px 4px 0;border-top:1px solid #cfd8dc;color:#6e7d88;font-size:12px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;padding:36px}.hero-logo{justify-self:start;width:190px;transform:none}.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){.shell{padding:16px 12px 36px}.mini-brand span{display:none}.private{font-size:10px}.hero{gap:26px;margin:20px 0 32px;padding:29px 24px;border-radius:25px}.hero-logo{width:140px;padding:8px;border-radius:20px}.hero-logo img{border-radius:14px}.lead{font-size:15px}.section-head{align-items:start;flex-direction:column;gap:5px}.grid{grid-template-columns:1fr}.card{min-height:205px}footer{flex-direction:column;gap:5px}}
   </style>
 </head>
 <body>
-<main>
-  <span class="brand">STILL PRINTING</span>
-  <h1>Bảng giá nội bộ</h1>
-  <p class="intro">Chọn hạng mục cần tính giá và báo khách.</p>
-  <section class="grid" aria-label="Các hạng mục bảng giá">
-    <a class="card" href="./card-voucher.html">
-      <span class="icon">💳</span>
-      <h2>Card &amp; Voucher</h2>
-      <p>Bảng giá danh thiếp và Gift Voucher giấy Couche 300, cán màng mờ hai mặt.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-    <a class="card" href="./to-roi.html">
-      <span class="icon">📄</span>
-      <h2>Tờ rơi</h2>
-      <p>Bảng giá tờ rơi Offset GC theo khổ giấy, định lượng và số lượng.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-    <a class="card" href="./catalogue.html">
-      <span class="icon">📚</span>
-      <h2>Catalogue</h2>
-      <p>Bảng giá Catalogue A4 và A5 đứng: bấm kim, bấm 2 kim và keo gáy.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-    <a class="card" href="./bao-thu.html">
-      <span class="icon">✉️</span>
-      <h2>Bao thư</h2>
-      <p>Bảng giá Bao thư Fort, Couche và Kraft theo kích thước, giấy và số lượng.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-    <a class="card" href="./folder.html">
-      <span class="icon">📁</span>
-      <h2>Folder</h2>
-      <p>Bảng giá Folder bìa kẹp A4, A5 và Folder hộp theo giấy, cán màng và số lượng.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-    <a class="card" href="./tui-giay.html">
-      <span class="icon">🛍️</span>
-      <h2>Túi giấy</h2>
-      <p>Bảng giá túi giấy Ivory và Kraft trắng theo kích thước, định lượng và số lượng.</p>
-      <span class="open">Mở bảng giá →</span>
-    </a>
-  </section>
-  <p class="foot">Mỗi bảng giá được bảo vệ bằng mật khẩu riêng của Still Printing.</p>
-</main>
+  <div class="shell">
+    <header>
+      <div class="mini-brand"><img src="./still-logo-2026.svg" alt=""><span>STILL PRINTING</span></div>
+      <span class="private">🔒 BẢNG GIÁ NỘI BỘ</span>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Print with confidence</p>
+        <h1>Báo giá nhanh.<br>In ấn chuẩn.</h1>
+        <p class="lead">Chọn hạng mục, điều chỉnh make-up và gửi báo giá chuyên nghiệp cho khách hàng chỉ trong vài thao tác.</p>
+      </div>
+      <div class="hero-logo"><img src="./still-logo-2026.svg" alt="Logo Still Printing"></div>
+    </section>
+
+    <div class="section-head">
+      <h2>Chọn hạng mục</h2>
+      <p>06 công cụ báo giá đang hoạt động</p>
+    </div>
+
+    <main class="grid" aria-label="Các hạng mục bảng giá">
+      <a class="card primary" href="./card-voucher.html">
+        <span class="top"><span class="icon">💳</span><span class="num">01</span></span>
+        <h3>Card &amp; Voucher</h3><p>Danh thiếp và Gift Voucher giấy Couche 300, cán màng mờ hai mặt.</p><span class="open">Mở bảng giá</span>
+      </a>
+      <a class="card" href="./to-roi.html" style="--accent:#d8edf5">
+        <span class="top"><span class="icon">📄</span><span class="num">02</span></span>
+        <h3>Tờ rơi</h3><p>Tờ rơi Offset GC và tờ gấp theo khổ giấy, định lượng và số lượng.</p><span class="open">Mở bảng giá</span>
+      </a>
+      <a class="card" href="./catalogue.html" style="--accent:#f8e9a9">
+        <span class="top"><span class="icon">📚</span><span class="num">03</span></span>
+        <h3>Catalogue</h3><p>Catalogue A4, A5 đứng: bấm kim, bấm 2 kim và keo gáy.</p><span class="open">Mở bảng giá</span>
+      </a>
+      <a class="card" href="./bao-thu.html" style="--accent:#f5dbd4">
+        <span class="top"><span class="icon">✉️</span><span class="num">04</span></span>
+        <h3>Bao thư</h3><p>Bao thư Fort, Couche và Kraft theo kích thước, giấy và số lượng.</p><span class="open">Mở bảng giá</span>
+      </a>
+      <a class="card" href="./folder.html" style="--accent:#dfe4f5">
+        <span class="top"><span class="icon">📁</span><span class="num">05</span></span>
+        <h3>Folder</h3><p>Folder bìa kẹp A4, A5 và Folder hộp theo giấy và cán màng.</p><span class="open">Mở bảng giá</span>
+      </a>
+      <a class="card" href="./tui-giay.html" style="--accent:#dcebd8">
+        <span class="top"><span class="icon">🛍️</span><span class="num">06</span></span>
+        <h3>Túi giấy</h3><p>Túi giấy Ivory và Kraft trắng theo kích thước, định lượng và số lượng.</p><span class="open">Mở bảng giá</span>
+      </a>
+    </main>
+
+    <footer><span>© Still Printing · Bảng giá nội bộ</span><span>Mỗi công cụ được bảo vệ bằng mật khẩu</span></footer>
+  </div>
 </body>
 </html>
