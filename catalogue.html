@@ -124,6 +124,7 @@ Chủ tài khoản: Hộ Kinh Doanh MCM
 Ngân hàng Quân Đội: MB Bank
 Số tài khoản: 6986417373`;
 const fmt=n=>Math.round(n).toLocaleString('vi-VN');
+const ratioFmt=n=>n.toLocaleString('vi-VN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const roundPrice=n=>Math.ceil(n/1000)*1000;
 const money=n=>fmt(n)+'đ';
 
@@ -159,7 +160,7 @@ function inputValue(input){return Number(input.value.replace(/[^0-9]/g,''))||0}
 
 function update(){
   const markup=(Number(document.querySelector('#markup').value)||0)/100;
-  document.querySelector('#formula').textContent=`Giá Still = Giá gia công × ${fmt(1+markup)} · 1 cuốn = Giá Still ÷ số lượng`;
+  document.querySelector('#formula').textContent=`Giá Still = Giá gia công × ${ratioFmt(1+markup)} · 1 cuốn = Giá Still ÷ số lượng`;
   document.querySelectorAll('.price').forEach(input=>{
     const cost=inputValue(input);
     const price=roundPrice(cost*(1+markup));
