@@ -10,3 +10,4 @@ Các hạng mục:
 
 - [Tờ rơi Offset GC và Tờ gấp](https://quoctobao87-arch.github.io/still-printing/to-roi.html)
 - [Catalogue A4 và A5 đứng](https://quoctobao87-arch.github.io/still-printing/catalogue.html)
+- [Bao thư](https://quoctobao87-arch.github.io/still-printing/bao-thu.html)
