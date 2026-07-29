@@ -224,12 +224,13 @@ function copyQuote(event){
   const priceText=cell.querySelector('.still span').textContent;
   const amount=Number(priceText.replace(/[^0-9]/g,''))||0;
   const deposit=money(Math.round(amount/2));
-  const glueText=table.glueFee?`Đã gồm keo nắp ${fmt(table.glueFee)}đ/cái`:'Theo giá bảng Kraft nguồn';
+  const specification=table.glueFee
+    ? `Quy cách: Đã gồm keo nắp ${fmt(table.glueFee)}đ/cái${table.note?` · ${table.note}`:''}\n`
+    : '';
   const text=`${table.title}
 Giấy: ${row[0]}
 Số lượng: ${fmt(quantity)} cái
-Quy cách: ${glueText}${table.note?` · ${table.note}`:''}
-Giá tiền: ${priceText} (giá chưa bao gồm VAT)
+${specification}Giá tiền: ${priceText} (giá chưa bao gồm VAT)
 Cọc 50%: ${deposit}
 
 ${payment}`;
