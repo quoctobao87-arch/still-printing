@@ -9,4 +9,4 @@ Công cụ bảng giá nội bộ của Still Printing, được xuất bản b�
 Các hạng mục:
 
 - [Tờ rơi Offset GC và Tờ gấp](https://quoctobao87-arch.github.io/still-printing/to-roi.html)
-- [Catalogue A4 đứng](https://quoctobao87-arch.github.io/still-printing/catalogue.html)
+- [Catalogue A4 và A5 đứng](https://quoctobao87-arch.github.io/still-printing/catalogue.html)
