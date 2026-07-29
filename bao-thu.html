@@ -222,15 +222,17 @@ function copyQuote(event){
   const row=table.rows[Number(input.dataset.row)];
   const quantity=Number(input.dataset.quantity);
   const priceText=cell.querySelector('.still span').textContent;
+  const hasVat=cell.querySelector('.vat-toggle')?.checked;
   const amount=Number(priceText.replace(/[^0-9]/g,''))||0;
   const deposit=money(Math.round(amount/2));
+  const vatNote=hasVat?'giá đã bao gồm VAT 8%':'giá chưa bao gồm VAT';
   const specification=table.glueFee
     ? `Quy cách: Đã gồm keo nắp ${fmt(table.glueFee)}đ/cái${table.note?` · ${table.note}`:''}\n`
     : '';
   const text=`${table.title}
 Giấy: ${row[0]}
 Số lượng: ${fmt(quantity)} cái
-${specification}Giá tiền: ${priceText} (giá chưa bao gồm VAT)
+${specification}Giá tiền: ${priceText} (${vatNote})
 Cọc 50%: ${deposit}
 
 ${payment}`;
@@ -280,5 +282,6 @@ draw();
   input.focus();
 })();
 </script>
+<script src="./vat.js"></script>
 </body>
 </html>
