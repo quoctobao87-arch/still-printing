@@ -13,3 +13,4 @@ Các hạng mục:
 - [Catalogue A4 và A5 đứng](https://quoctobao87-arch.github.io/still-printing/catalogue.html)
 - [Bao thư](https://quoctobao87-arch.github.io/still-printing/bao-thu.html)
 - [Folder](https://quoctobao87-arch.github.io/still-printing/folder.html)
+- [Túi giấy](https://quoctobao87-arch.github.io/still-printing/tui-giay.html)
