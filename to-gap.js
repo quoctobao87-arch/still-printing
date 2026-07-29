@@ -38,31 +38,36 @@ const foldedTables = foldedFlyerData.map(table => `
         </tr>
       </thead>
       <tbody>
-        ${table.rows.map(row => `
-          <tr>
+        ${table.rows.map((row, rowIndex) => `
+          <tr class="${rowIndex === 5 ? 'fold-fee-row' : ''}">
             <th>${row[0]}</th>
             ${row[1].map((price, columnIndex) => `
               <td>
                 <input
                   class="price"
+                  data-folded-table="${table.product}"
+                  data-column="${columnIndex}"
+                  data-kind="${rowIndex < 4 ? 'paper' : rowIndex === 4 ? 'lamination' : 'folding'}"
                   data-qty="${table.quantities[columnIndex]}"
                   type="text"
                   inputmode="numeric"
                   value="${price.toLocaleString('vi-VN')}"
                 >
+                ${rowIndex < 4 ? '<div class="fold-included" style="font-size:11px;color:#65747c">Đã cộng phí gấp</div>' : ''}
                 <div class="still">Still: <span>—</span></div>
                 <div class="still unit-line">1 tờ: <span>—</span></div>
                 <div class="still profit-line">Lời: <span>—</span></div>
+                ${rowIndex === 5 ? '<div style="margin-top:5px;color:#854F0B;font-size:11px;font-weight:700">Tự cộng vào giá giấy</div>' : `
                 <label style="display:block;margin-top:5px;color:#854F0B;font-size:11px;font-weight:700;cursor:pointer">
                   <input
                     class="pick"
                     type="checkbox"
                     data-product="${table.product}"
-                    data-paper="${row[0]}"
+                    data-paper="${row[0]}${rowIndex < 4 ? ' (đã gồm phí gấp thành phẩm)' : ''}"
                     data-qty="${table.quantities[columnIndex].toLocaleString('vi-VN')}"
                   >
                   Tick để copy <span class="copied"></span>
-                </label>
+                </label>`}
               </td>
             `).join('')}
           </tr>
@@ -72,6 +77,45 @@ const foldedTables = foldedFlyerData.map(table => `
   </section>
 `).join('');
 
+function foldedNumber(input) {
+  return Number(input.value.replace(/[^0-9]/g, '')) || 0;
+}
+
+function updateFoldedTotals() {
+  const markup = (Number(document.querySelector('#markup').value) || 0) / 100;
+  document.querySelectorAll('.folded-section').forEach(section => {
+    section.querySelectorAll('input[data-kind="paper"]').forEach(paperInput => {
+      const column = paperInput.dataset.column;
+      const foldingInput = section.querySelector(`input[data-kind="folding"][data-column="${column}"]`);
+      const combinedCost = foldedNumber(paperInput) + foldedNumber(foldingInput);
+      const stillPrice = Math.ceil(combinedCost * (1 + markup) / 1000) * 1000;
+      const quantity = Number(paperInput.dataset.qty) || 1;
+      const cell = paperInput.closest('td');
+      cell.querySelector('.still span').textContent = fmt(stillPrice) + 'đ';
+      cell.querySelector('.unit-line span').textContent = fmt(stillPrice / quantity) + 'đ';
+      cell.querySelector('.profit-line span').textContent = fmt(stillPrice - combinedCost) + 'đ';
+    });
+  });
+}
+
+function updateFlyerFormula() {
+  const markup = (Number(document.querySelector('#markup').value) || 0) / 100;
+  const ratio = (1 + markup).toLocaleString('vi-VN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  document.querySelector('#formula').textContent =
+    `Giá Still = Giá gia công × ${ratio} · 1 tờ = Giá Still ÷ số lượng · Lời = Giá Still − Giá gia công`;
+}
+
 document.querySelector('#tables').insertAdjacentHTML('beforeend', foldedTables);
-document.querySelectorAll('.folded-section .price').forEach(input => input.addEventListener('input', update));
+document.querySelectorAll('.folded-section .price').forEach(input => {
+  input.addEventListener('input', update);
+  input.addEventListener('input', updateFoldedTotals);
+  input.addEventListener('input', updateFlyerFormula);
+});
+document.querySelector('#markup').addEventListener('input', updateFoldedTotals);
+document.querySelector('#markup').addEventListener('input', updateFlyerFormula);
 update();
+updateFoldedTotals();
+updateFlyerFormula();
