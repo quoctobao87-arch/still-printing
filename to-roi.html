@@ -14,10 +14,13 @@ document.addEventListener('change',function(e){
   e.stopImmediatePropagation();
   const box=e.target;if(!box.checked)return;
   document.querySelectorAll('.pick').forEach(x=>{if(x!==box)x.checked=false});
-  const price=box.closest('td').querySelector('.still span').textContent;
+  const cell=box.closest('td');
+  const price=cell.querySelector('.still span').textContent;
+  const hasVat=cell.querySelector('.vat-toggle')?.checked;
   const amount=Number(price.replace(/[^0-9]/g,''))||0;
   const deposit=(Math.round(amount/2)).toLocaleString('vi-VN')+'đ';
-  const text=`${box.dataset.product}\nGiấy: ${box.dataset.paper}\nSố lượng: ${box.dataset.qty}\nGiá tiền: ${price} (giá chưa bao gồm VAT)\nCọc 50%: ${deposit}\n\n${payment}`;
+  const vatNote=hasVat?'giá đã bao gồm VAT 8%':'giá chưa bao gồm VAT';
+  const text=`${box.dataset.product}\nGiấy: ${box.dataset.paper}\nSố lượng: ${box.dataset.qty}\nGiá tiền: ${price} (${vatNote})\nCọc 50%: ${deposit}\n\n${payment}`;
   const done=()=>{box.parentElement.querySelector('.copied').textContent='Đã copy!';setTimeout(()=>box.parentElement.querySelector('.copied').textContent='',1500)};
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done).catch(()=>{const a=document.createElement('textarea');a.value=text;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()});
   else{const a=document.createElement('textarea');a.value=text;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}
@@ -41,3 +44,4 @@ document.querySelector('h1').textContent='Giá Tờ Rơi Offset GC';
 })();
 </script></body></html>
 <script src="./to-gap.js"></script>
+<script src="./vat.js"></script>

@@ -208,14 +208,16 @@ function copyQuote(event){
   const input=cell.querySelector('.price');
   const table=data[Number(input.dataset.table)];
   const priceText=cell.querySelector('.still span').textContent;
+  const hasVat=cell.querySelector('.vat-toggle')?.checked;
   const amount=Number(priceText.replace(/[^0-9]/g,''))||0;
   const deposit=money(Math.round(amount/2));
   const [productName,...specParts]=table.title.split(' — ');
+  const vatNote=hasVat?'giá đã bao gồm VAT 8%':'giá chưa bao gồm VAT';
   const text=`${productName}
 Quy cách: ${specParts.join(' — ')}
 Số trang: ${input.dataset.pages} trang
 Số lượng: ${fmt(Number(input.dataset.quantity))} cuốn
-Giá tiền: ${priceText} (giá chưa bao gồm VAT)
+Giá tiền: ${priceText} (${vatNote})
 Cọc 50%: ${deposit}
 
 ${payment}`;
@@ -265,5 +267,6 @@ draw();
   input.focus();
 })();
 </script>
+<script src="./vat.js"></script>
 </body>
 </html>
