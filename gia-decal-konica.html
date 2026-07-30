@@ -469,5 +469,25 @@ rowsEl.addEventListener('click',function(e){
 initSel();render();run();
 })();
 </script>
+<script>
+(function(){
+  const key='still-decal-konica-unlocked';
+  if(sessionStorage.getItem(key)==='yes')return;
+  const gate=document.createElement('div');
+  gate.style.cssText='position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#e8f6fb,#fff5d8);font-family:Arial,sans-serif';
+  gate.innerHTML='<div style="width:min(360px,100%);padding:30px;border-radius:18px;background:#fff;box-shadow:0 18px 55px #24536b35;text-align:center"><div style="font-size:36px">🔒</div><h1 style="font-size:24px;margin:12px 0 8px;color:#17242b">Giá Decal Konica</h1><p style="color:#536170;margin:0 0 18px">Nhập mật khẩu để mở công cụ Still Printing.</p><input id="site-pass" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Mật khẩu" style="width:100%;padding:12px;border:1px solid #aebdca;border-radius:8px;font-size:17px;text-align:center"><button id="site-open" style="width:100%;margin-top:10px;padding:12px;background:#10283f;color:#fff;border:0;border-radius:8px;font-weight:700;font-size:16px">Mở công cụ</button><div id="site-error" style="min-height:20px;margin-top:10px;color:#be3030;font-size:13px"></div></div>';
+  document.body.appendChild(gate);
+  const input=document.querySelector('#site-pass');
+  const open=()=>{
+    if(input.value==='3979'){
+      sessionStorage.setItem(key,'yes');
+      gate.remove();
+    }else document.querySelector('#site-error').textContent='Mật khẩu chưa đúng, chị thử lại nhé.';
+  };
+  document.querySelector('#site-open').addEventListener('click',open);
+  input.addEventListener('keydown',event=>{if(event.key==='Enter')open()});
+  input.focus();
+})();
+</script>
 </body>
 </html>
