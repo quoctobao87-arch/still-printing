@@ -44,6 +44,8 @@
     .featured:before{width:230px;height:230px;right:-70px;top:-130px;background:#fff9d0}
     .featured .icon{width:68px;height:68px;border-radius:20px;background:var(--navy);color:#fff;font-size:32px}
     .featured h3{margin:0 0 7px;font-size:30px}.featured p{max-width:650px;color:#5c532f}.featured .open{position:relative;margin:0;padding:13px 16px;border-radius:999px;background:var(--navy);color:#fff;white-space:nowrap}
+    .featured.offset{background:linear-gradient(125deg,#d9edf5,#eef8fb);border-color:#a9cedc;box-shadow:0 14px 34px #1c638122}
+    .featured.offset:before{background:#fff}.featured.offset .icon{background:#006b87}
     footer{display:flex;justify-content:space-between;gap:20px;margin-top:24px;padding:19px 4px 0;border-top:1px solid #cfd8dc;color:#6e7d88;font-size:12px}
     @media(max-width:900px){.hero{grid-template-columns:1fr;padding:36px}.hero-logo{justify-self:start;width:190px;transform:none}.grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:620px){.shell{padding:16px 12px 36px}.mini-brand span{display:none}.private{font-size:10px}.hero{gap:26px;margin:20px 0 32px;padding:29px 24px;border-radius:25px}.hero-logo{width:140px;padding:8px;border-radius:20px}.hero-logo img{border-radius:14px}.lead{font-size:15px}.section-head{align-items:start;flex-direction:column;gap:5px}.grid{grid-template-columns:1fr}.card{min-height:205px}.featured{display:flex;align-items:flex-start;min-height:245px;padding:26px}.featured h3{margin-top:18px}.featured .open{align-self:flex-start;margin-top:auto}footer{flex-direction:column;gap:5px}}
@@ -67,13 +69,18 @@
 
     <div class="section-head">
       <h2>Chọn hạng mục</h2>
-      <p>07 công cụ báo giá đang hoạt động</p>
+      <p>08 công cụ báo giá đang hoạt động</p>
     </div>
 
     <main class="grid" aria-label="Các hạng mục bảng giá">
       <a class="card featured" href="./gia-decal-konica.html">
         <span class="icon">✦</span>
         <span><h3>Giá Decal Konica</h3><p>Công cụ bình tem/decal, tính giá in Konica và chuẩn bị nội dung báo khách.</p></span>
+        <span class="open">Mở công cụ</span>
+      </a>
+      <a class="card featured offset" href="./gia-decal-offset.html">
+        <span class="icon">◆</span>
+        <span><h3>Giá Decal Offset</h3><p>Công cụ tính giá in Decal Offset và chuẩn bị nội dung báo khách, gửi xưởng.</p></span>
         <span class="open">Mở công cụ</span>
       </a>
       <a class="card primary" href="./card-voucher.html">
